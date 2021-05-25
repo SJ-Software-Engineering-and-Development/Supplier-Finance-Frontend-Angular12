@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 import { LandingComponent } from './components/user-common/landing/landing.component';
 import { LoginComponent } from './components/user-common/login/login.component';
 import { SignUpComponent } from './components/user-common/sign-up/sign-up.component';
@@ -21,15 +25,12 @@ import { LogoutComponent } from './components/user-common/logout/logout.componen
 import { PagecontainerComponent } from './components/user-common/pagecontainer/pagecontainer.component';
 
 const appRountes: Routes=[
-  // {path: '', component: LoginComponent},
   {path: '', component: LandingComponent},
-  {path: 'login', component: LoginComponent},
-  {path:'logout', component: LogoutComponent},
-  {path:'buyer_dashboard', component: BuyerDashboardComponent},
-  {path:'seller_dashboard', component: SellerDashboardComponent},
-  {path:'utility', component: PagecontainerComponent}
-  
-  // {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuardService]}
+  {path:'buyer_dashboard', component: BuyerDashboardComponent,canActivate: [AuthGuardService]},
+  {path:'seller_dashboard', component: SellerDashboardComponent, canActivate: [AuthGuardService]},
+  {path:'banker_dashboard', component: BankerDashboardComponent,canActivate: [AuthGuardService]},
+  {path:'utility', component: PagecontainerComponent},
+  {path:'app_pagecontainer', component: PagecontainerComponent}
 ];
 
 @NgModule({
@@ -54,7 +55,10 @@ const appRountes: Routes=[
   ],
   imports: [
     BrowserModule,
-    [RouterModule.forRoot(appRountes)]
+    [RouterModule.forRoot(appRountes)],
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

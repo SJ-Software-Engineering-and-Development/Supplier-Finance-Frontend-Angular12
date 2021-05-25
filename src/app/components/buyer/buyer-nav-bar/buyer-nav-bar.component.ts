@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-buyer-nav-bar',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuyerNavBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tokenStorageService: TokenStorageService, private router:Router) { }
 
   ngOnInit(): void {
+  }
+
+  logout(){
+    this.tokenStorageService.signOut();
+    this.router.navigate(['']);
+    window.location.reload();
   }
 
 }

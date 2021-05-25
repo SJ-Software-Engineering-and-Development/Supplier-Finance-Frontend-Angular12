@@ -77,21 +77,39 @@
 		$('a[href^="#welcome"]').addClass('active');
 
 		//smoothscroll
-		$('.menu-item').on('click', function (e) {
-			e.preventDefault();
-			var athis = this;
-			var target = this.hash,
-				menu = target;
-			var $target = $(target);
+		// $('.menu-item').on('click', function (e) {
+		// 	e.preventDefault();
+		// 	var athis = this;
+		// 	var target = this.hash,
+		// 		menu = target;
+		// 	var $target = $(target);
 
+		// 	$('html, body').stop().animate({
+		// 		'scrollTop': $target.offset().top
+		// 	}, 500, 'swing', function () {
+		// 		window.location.hash = target;
+		// 		$('.menu-item').removeClass('active');
+		// 		$(athis).addClass('active');
+		// 	});
+
+		// });
+		$('.menu-item').on('click', function (e) {
+			//Only do the smooth scrolling If the link has a hash and the link is pointing to this same page.
+			if (this.hash !== "" && this.pathname == window.location.pathname) {
+			e.preventDefault();
+			var target = this.hash;
+			var topOffset = 0; //#top should default to 0 so no need to calculate the difference between top and top :)
+			if (target != "#top") { //If the target is not "#top", then calculate topOffset
+			var topOffset = $(target).offset().top;
+			}
+			
 			$('html, body').stop().animate({
-				'scrollTop': $target.offset().top
-			}, 500, 'swing', function () {
-				window.location.hash = target;
-				$('.menu-item').removeClass('active');
-				$(athis).addClass('active');
+			'scrollTop': topOffset
+			}, 900, 'swing', function () {
+			window.location.hash = target;
 			});
-		});
+			}
+			});
 
 		$(window).scroll(function (event) {
 			var scrollPos = $(document).scrollTop() + 80;
@@ -104,11 +122,15 @@
 				var currLink = $(this);
 				var refElement = $(currLink.attr("href"));
 
-				if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-					$('.menu-item').removeClass("active");
-					currLink.addClass("active");
-				} else {
-					currLink.removeClass("active");
+				try{
+					if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+						$('.menu-item').removeClass("active");
+						currLink.addClass("active");
+					} else {
+						currLink.removeClass("active");
+					}
+				}catch(err){
+					
 				}
 			});
 		})
