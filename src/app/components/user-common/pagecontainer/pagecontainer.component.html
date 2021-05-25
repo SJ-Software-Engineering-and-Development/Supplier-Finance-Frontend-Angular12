@@ -1,4 +1,4 @@
-<ng-template [ngIf]="loged_id" [ngIfThen]="innerPages" [ngIfElse]="landingPage">
+<ng-template [ngIf]="isLoggedIn" [ngIfThen]="innerPages" [ngIfElse]="landingPage">
 
 </ng-template>
 
@@ -8,15 +8,18 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
 
       <!-- Nav bar -->
-      <div class='row' [ngSwitch]="user_type">
-        <div *ngSwitchCase="'buyer'">
+      <div class='row' [ngSwitch]="user_role">
+        <div *ngSwitchCase="'ROLE_BUYER'">
           <app-buyer-nav-bar></app-buyer-nav-bar>
         </div>
-        <div *ngSwitchCase="'seller'">
+        <div *ngSwitchCase="'ROLE_SELLER'">
           <app-seller-nav-bar></app-seller-nav-bar>
         </div>
-        <div *ngSwitchCase="'banker'">
+        <div *ngSwitchCase="'ROLE_BANKER'">
           <app-banker-nav-bar></app-banker-nav-bar>
+        </div>
+        <div *ngSwitchCase="'ROLE_WEB_MASTER'">
+          
         </div>
         <div *ngSwitchDefault>Default Option</div>
       </div>
@@ -24,15 +27,18 @@
 
       <div class="app-main">
         <!-- Slide bar -->
-        <div class='row' [ngSwitch]="user_type">
-          <div *ngSwitchCase="'buyer'">
+        <div class='row' [ngSwitch]="user_role">
+          <div *ngSwitchCase="'ROLE_BUYER'">
             <app-buyer-slide-bar></app-buyer-slide-bar>
           </div>
-          <div *ngSwitchCase="'seller'">
+          <div *ngSwitchCase="'ROLE_SELLER'">
             <app-seller-slide-bar></app-seller-slide-bar>
           </div>
-          <div *ngSwitchCase="'banker'">
+          <div *ngSwitchCase="'ROLE_BANKER'">
             <app-banker-slide-bar></app-banker-slide-bar>
+          </div>
+          <div *ngSwitchCase="'ROLE_WEB_MASTER'">
+          
           </div>
           <div *ngSwitchDefault>Default Option</div>
         </div>
