@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginForm = new FormGroup({
-      'username' : new FormControl(null, [Validators.min(5),Validators.max(20)]),
-      'password' : new FormControl(null, [Validators.min(6), Validators.max(120)])
+      'username' : new FormControl(null, [Validators.required, Validators.min(5), Validators.max(20)]),
+      'password' : new FormControl(null, [Validators.required, Validators.min(6), Validators.max(120)])
     });
 
     if (this.tokenStorage.getToken()) {
