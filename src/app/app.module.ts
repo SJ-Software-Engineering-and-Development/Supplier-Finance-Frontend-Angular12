@@ -30,14 +30,20 @@ import { SellerSlideBarComponent } from './components/seller/seller-slide-bar/se
 import { LogoutComponent } from './components/user-common/logout/logout.component';
 import { PagecontainerComponent } from './components/user-common/pagecontainer/pagecontainer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UploadInvoiceComponent } from './components/buyer/invoice/upload-invoice/upload-invoice.component';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ViewInvoiceComponent } from './components/buyer/invoice/view-invoice/view-invoice.component';
 
 const appRountes: Routes=[
   {path: '', component: LandingComponent},
+  {path:'app_pagecontainer', component: PagecontainerComponent},
   {path:'buyer_dashboard', component: BuyerDashboardComponent,canActivate: [AuthGuardService]},
   {path:'seller_dashboard', component: SellerDashboardComponent, canActivate: [AuthGuardService]},
   {path:'banker_dashboard', component: BankerDashboardComponent,canActivate: [AuthGuardService]},
   {path:'utility', component: PagecontainerComponent},
-  {path:'app_pagecontainer', component: PagecontainerComponent}
+  {path:'buyer-invoice_upload', component: UploadInvoiceComponent}
 ];
 
 @NgModule({
@@ -59,6 +65,8 @@ const appRountes: Routes=[
     SellerSlideBarComponent,
     LogoutComponent,
     PagecontainerComponent,
+    UploadInvoiceComponent,
+    ViewInvoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +82,12 @@ const appRountes: Routes=[
     MatSelectModule,
     MatRadioModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }
