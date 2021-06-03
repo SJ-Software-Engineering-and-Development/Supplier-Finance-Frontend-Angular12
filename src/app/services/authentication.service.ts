@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs/index';
 import { User } from '../dtos/user';
-import {map} from 'rxjs/internal/operators';
+import { map } from 'rxjs/internal/operators';
 import { HttpClientModule } from '@angular/common/http';
-
-// const BASE_URL = "http://localhost:8082/supplierfinance/api/";
-// const URL = "user/login/";
+import { supplierSaveDTO } from '../dtos/supplierSaveDTO';
+import { clientSaveDTO } from '../dtos/clientSaveDTO';
 
 const AUTH_API = 'http://localhost:8082/api/auth/';
 const httpOptions = {
@@ -22,8 +21,8 @@ export class AuthenticationService {
  * Author : SJ.Peeris
  * 
  */
+ supplierSaveDTO_: supplierSaveDTO;
   
-  // user:User;
   isValid:boolean;
   constructor(private http:HttpClient) { }
 
@@ -51,11 +50,49 @@ export class AuthenticationService {
     }, httpOptions);
   }
 
-  register(user:any): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
-      username: user.username,
-      email: user.email,
-      password: user.password
+  supplierSignup(newSupplier:supplierSaveDTO): Observable<any> {
+    
+    return this.http.post(AUTH_API + 'supplierSignup', {
+      username: newSupplier.username,
+      email: newSupplier.email,
+      role:["ROLE_SELLER"],
+      password: newSupplier.password,
+      fullName : newSupplier.fullName,
+      city : newSupplier.city,
+      state : newSupplier.state,
+      county : newSupplier.county,
+      phoneNumber : newSupplier.phoneNumber,
+      supplierLimit :newSupplier.supplierLimit,
+      account : {
+        accountNumber : newSupplier.account.accountNumber,
+        bankName : newSupplier.account.bankName,
+        accountType : newSupplier.account.accountType,
+        bankCode : newSupplier.account.bankCode
+  }
+    }, httpOptions);
+  }
+
+  clientSignup(newClient:clientSaveDTO): Observable<any> {
+    
+    return this.http.post(AUTH_API + 'clientSignup', {
+
+        username:newClient.username,
+        email: newClient.email,
+        role:["ROLE_BUYER"],
+        password: newClient.password,
+        fullName :  newClient.fullName,
+        city :  newClient.city,
+        state : newClient.state,
+        county : newClient.county,
+        phoneNumber : newClient.phoneNumber,
+        creditLimit : newClient.creditLimit,
+        account : {
+            accountNumber : newClient.account.accountNumber,
+            bankName : newClient.account.bankName,
+            accountType : newClient.account.accountType,
+            bankCode : newClient.account.bankCode
+        }
+     
     }, httpOptions);
   }
 

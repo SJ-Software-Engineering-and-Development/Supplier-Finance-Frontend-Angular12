@@ -1,1 +1,244 @@
-<p>sign-up works!</p>
+<!-- Modal -->
+<div class="modal fade" id="singUpForm" tabindex="-1" aria-labelledby="singUpForm" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="padding: 0%;">
+    <div class="modal-content" style="padding: 0%;">
+      <div class="modal-body" style="padding: 0%;margin-top: 0%;">
+        <div class="container register" style="margin-top: -4px;padding-top: 0%;">
+          <div class="row">
+            <div class="col-md-2 register-left">
+              <!-- <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="">
+              <h3>Welcome</h3>
+              <br>
+              <p style="color: rgb(224, 222, 222);">Faster and secure way of Digital Selling & Transaction</p> -->
+
+              <!-- <p style="color: white;padding-bottom: 0%;">Alreadt have an Account?</p>
+              <button type="button" class="btn btn-primary"
+                style="border-radius: 1.5rem; width: 60%;margin-bottom: 50px;">
+                Sign in
+              </button> -->
+              <br>
+            </div>
+            <div class="col-md-10 register-right">
+
+              <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <h2 class="register-heading" style="color: tomato;">Create Account</h2>
+                  <div class="row register-form" style="padding-top: 0%;padding-top: 0%; padding-right: 0%;">
+                    <div class="col">
+                      <!-- https://material.angular.io/components/stepper/overview#completed-step -->
+                      <!-- https://www.youtube.com/watch?v=70tgfax7o50 -->
+
+                      <mat-horizontal-stepper #stepper linear>
+
+                        <mat-step>
+                          <div class="row mt-4">
+                            <div class="col">
+                              <div class="card" >
+                                <div class="card-body" (click)="goForward(stepper, 'ROLE_BUYER')">                                  
+                                  <div class="text-center">
+                                    <h5 class="card-title" style="color: tomato;"><strong>Become a Buyer</strong></h5>
+                                    <div>
+                                      <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+                                    </div>
+                                  </div>
+                                  <p class="card-text mt-3">
+                                    Create Your Buyer Account
+                                  </p>                                 
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="card">
+                                <div class="card-body" (click)="goForward(stepper, 'ROLE_SELLER')">
+                                  
+                                  <div class="text-center">
+                                    <h5 class="card-title" style="color: tomato;"><strong>Become a Seller</strong></h5>
+                                    <div>
+                                      <i class="fa fa-user-plus fa-5x" aria-hidden="true"></i>
+                                    </div>
+                                  </div>
+                                  <p class="card-text mt-3">
+                                    Create Your Seller Account
+                                  </p>                                 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-step>
+
+                        <mat-step [stepControl]="frmPersonalInf" errorMessage="Personal Details required.">
+                          <form [formGroup]="frmPersonalInf" style="padding: 0%;">
+                            <ng-template matStepLabel>Personal Info</ng-template>
+
+                            <mat-form-field style="font-size: 13px" appearance="outline" [style.width.%]="100">
+                              <mat-label>Full Name</mat-label>
+                              <input matInput placeholder="Full Name" formControlName="fullName">                             
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>Country</mat-label>
+                              <input matInput placeholder="Country" formControlName="country">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>Province</mat-label>
+                              <input matInput placeholder="Province" formControlName="province">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>City</mat-label>
+                              <input matInput placeholder="City" formControlName="city">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>State</mat-label>
+                              <input matInput placeholder="State" formControlName="state">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" hintLabel="Max 10 digits" [style.width.%]="48">
+                              <mat-label>Contact No</mat-label>
+                              <input matInput maxlength="10" placeholder="Contact No" formControlName="contactNo">
+                              <mat-hint align="end">{{fPersonal.contactNo.value?.length || 0}}/10</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>Email</mat-label>
+                              <input matInput placeholder="Email" formControlName="email">
+                            </mat-form-field>
+                            <div>
+                              <button mat-button matStepperPrevious class="btn btn-primary rounded mt-2 ml-2"
+                              style="background-color: #3b3b3b;">Back</button>
+                              <button mat-button matStepperNext class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3F51B5;">Next</button>
+                            </div>
+                          </form>
+                        </mat-step>
+
+                        <mat-step *ngIf="isSeller" [stepControl]="frmCreditAcc"
+                          errorMessage="Payment Details Required.">
+                          <form [formGroup]="frmCreditAcc" style="padding: 0%;">
+                            <ng-template matStepLabel>Payment Details</ng-template>
+
+                            <mat-form-field style="font-size: 13px" appearance="outline" [style.width.%]="100">
+                              <mat-label>Account Number</mat-label>
+                              <input matInput placeholder="Account Number" formControlName="creditAccNo" type="number">
+                              <mat-hint>Should be Valid</mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" [style.width.%]="100">
+                              <mat-label>Bank Name</mat-label>
+                              <input matInput placeholder="Bank Name" formControlName="creditAccBankName">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>Bank Code</mat-label>
+                              <input matInput placeholder="Bank Code" formControlName="creditBankCode">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>Suplier Limit</mat-label>
+                              <input matInput placeholder="Suplier Limit" formControlName="SuplierLimit">
+                            </mat-form-field>
+
+                            <div class="ml-2">
+                              <label>invoice Payment: </label>
+                              <mat-radio-group [formControl]="floatLabelControl_invoicePayment">
+                                <mat-radio-button value="Early Payment" class="ml-3">Early Payment</mat-radio-button>
+                                <mat-radio-button value="Auto Payment" class="ml-3">Auto Payment</mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+
+                            <div>
+                              <button mat-button matStepperPrevious class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3b3b3b;">Back</button>
+                              <button mat-button matStepperNext class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3F51B5;">Next</button>
+                            </div>
+                          </form>
+                        </mat-step>
+
+                        <mat-step *ngIf="isBuyer" [stepControl]="frmLoanAcc" errorMessage="Payment Details Required.">
+                          <form [formGroup]="frmLoanAcc" style="padding: 0%;">
+                            <ng-template matStepLabel>Payment Details</ng-template>
+
+                            <mat-form-field style="font-size: 13px" appearance="outline" [style.width.%]="100">
+                              <mat-label>Account Number</mat-label>
+                              <input matInput placeholder="Account Number" formControlName="loanAccNo" type="number">
+                              <mat-hint>Should be Valid</mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" [style.width.%]="100">
+                              <mat-label>Bank Name</mat-label>
+                              <input matInput placeholder="Bank Name" formControlName="loanAccBankName">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>Bank Code</mat-label>
+                              <input matInput placeholder="Bank Code" formControlName="loanBankCode">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" [style.width.%]="48">
+                              <mat-label>Credit Limit</mat-label>
+                              <input matInput placeholder="Credit Limit" formControlName="creditLimit" type="number">
+                            </mat-form-field>
+
+                            <div>
+                              <button mat-button matStepperPrevious class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3b3b3b;">Back</button>
+                              <button mat-button matStepperNext class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3F51B5;">Next</button>
+                            </div>
+                          </form>
+                        </mat-step>
+
+                        <mat-step [stepControl]="frmAccCredentials" errorMessage="Account Details Required.">
+                          <form [formGroup]="frmAccCredentials" style="padding: 0%;">
+                            <ng-template matStepLabel>User Account Details</ng-template>
+
+                            <mat-form-field style="font-size: 13px" appearance="outline" [style.width.%]="100">
+                              <mat-label>User Name</mat-label>
+                              <input matInput placeholder="User name" formControlName="userName">
+                              <mat-hint>Should be Valid</mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" style="font-size: 13px" [style.width.%]="48">
+                              <mat-label>Enter your password</mat-label>
+                              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                              <button mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+                                style="background-color: transparent;color: #3F51B5;">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                              </button>
+                            </mat-form-field>
+
+                            <mat-form-field style="font-size: 13px" appearance="outline" [style.width.%]="48">
+                              <mat-label>Confirm Password</mat-label>
+                              <input matInput placeholder="Account Number" formControlName="confirmPassword"
+                                type="password">
+                              <!-- <mat-hint>Should be Valid</mat-hint> -->
+                            </mat-form-field>
+
+                            <div>
+                              <button mat-button (click)="stepper.reset()" class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3F51B5;">Reset</button>
+                              <button mat-button matStepperPrevious class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3F51B5;">Back</button>
+                              <button (click)="clicksub()" mat-button class="btn btn-primary rounded mt-2 ml-2"
+                                style="background-color: #3F51B5;">Sign Up</button>
+
+                            </div>
+                          </form>
+                        </mat-step>
+
+                      </mat-horizontal-stepper>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--./Modal -->
