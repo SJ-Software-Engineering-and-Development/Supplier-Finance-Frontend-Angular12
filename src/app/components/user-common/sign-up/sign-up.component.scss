@@ -1,0 +1,183 @@
+.card{
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+
+cursor: pointer;
+}
+
+.card:hover{
+   transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(255, 10, 10, 0.20), 0 4px 8px rgba(241, 99, 3, 0.10);
+}
+
+.card h3{
+font-weight: 600;
+}
+
+.card-1{
+background-image: url(https://ionicframework.com/img/getting-started/ionic-native-card.png);
+    background-repeat: no-repeat;
+  background-position: right;
+  background-size: 80px;
+}
+
+@media(max-width: 990px){
+.card{
+  margin: 20px;
+}
+} 
+
+
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #3F51B5 !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #3F51B5!important;   /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+ border-color:#3F51B5!important; /*outer ring color change*/
+}
+
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+  font-size: 13px;
+}
+
+.form-control.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+.mat-input-element {
+  height: 50%;
+}
+
+.form-control.ng-touched.ng-valid {
+  border: 1px solid green;
+}
+
+.err-lbl {
+  font-family: arial;
+}
+
+.register {
+  background: -webkit-linear-gradient(left, #ff4800, rgb(37, 30, 28));
+  margin-top: 1%;
+  padding-top: 0%;
+  /* padding: 3%; */
+  // border-radius: 4%;
+}
+
+.register-left {
+  text-align: center;
+  color: #fff;
+  margin-top: 4%;
+}
+
+form {
+  padding-left: 40px;
+  padding-top: 2px;
+  margin-left: 10px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.register-right {
+  background: #f8f9fa;
+  border-top-left-radius: 10% 50%;
+  border-bottom-left-radius: 10% 50%;
+}
+
+.register-left img {
+  margin-top: 15%;
+  margin-bottom: 5%;
+  width: 25%;
+  -webkit-animation: mover 2s infinite alternate;
+  animation: mover 1s infinite alternate;
+}
+
+@-webkit-keyframes mover {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes mover {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+.register-left p {
+
+  padding: 12%;
+  margin-top: -9%;
+}
+
+.register .register-form {
+  padding: 10%;
+  margin-top: 18%;
+}
+
+.btnRegister {
+  float: right;
+  margin-top: 10%;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 2%;
+  background: #0062cc;
+  color: #fff;
+  font-weight: 600;
+  width: 50%;
+  cursor: pointer;
+}
+
+.register .nav-tabs {
+  margin-top: 3%;
+  border: none;
+  background: #0062cc;
+  border-radius: 1.5rem;
+  width: 28%;
+  float: right;
+}
+
+.register .nav-tabs .nav-link {
+  padding: 2%;
+  height: 34px;
+  font-weight: 600;
+  color: #fff;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+
+.register .nav-tabs .nav-link:hover {
+  border: none;
+}
+
+.register .nav-tabs .nav-link.active {
+  width: 100px;
+  color: #0062cc;
+  border: 2px solid #0062cc;
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+}
+
+.register-heading {
+  text-align: center;
+  margin-top: 3%;
+  margin-bottom: -15%;
+  color: #495057;
+}
+

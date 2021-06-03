@@ -6,6 +6,12 @@ import { AppComponent } from './app.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { LandingComponent } from './components/user-common/landing/landing.component';
 import { LoginComponent } from './components/user-common/login/login.component';
@@ -23,6 +29,7 @@ import { SellerNavBarComponent } from './components/seller/seller-nav-bar/seller
 import { SellerSlideBarComponent } from './components/seller/seller-slide-bar/seller-slide-bar.component';
 import { LogoutComponent } from './components/user-common/logout/logout.component';
 import { PagecontainerComponent } from './components/user-common/pagecontainer/pagecontainer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRountes: Routes=[
   {path: '', component: LandingComponent},
@@ -56,9 +63,16 @@ const appRountes: Routes=[
   imports: [
     BrowserModule,
     [RouterModule.forRoot(appRountes)],
-    ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
