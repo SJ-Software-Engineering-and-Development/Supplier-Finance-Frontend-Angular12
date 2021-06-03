@@ -43,7 +43,8 @@ const appRountes: Routes=[
   {path:'seller_dashboard', component: SellerDashboardComponent, canActivate: [AuthGuardService]},
   {path:'banker_dashboard', component: BankerDashboardComponent,canActivate: [AuthGuardService]},
   {path:'utility', component: PagecontainerComponent},
-  {path:'buyer-invoice_upload', component: UploadInvoiceComponent}
+  {path:'buyer-invoice_upload', component: UploadInvoiceComponent},
+  {path:'buyer-invoice_show', component: ViewInvoiceComponent}
 ];
 
 @NgModule({

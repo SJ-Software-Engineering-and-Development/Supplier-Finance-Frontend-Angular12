@@ -30,11 +30,12 @@ export class InvoiceService {
   }
 
   public getInvoice() {
-    this.http.get(AUTH_API + 'get_invoice')
+    this.http.get(AUTH_API + 'get_invoices')
       .subscribe(
         data => console.log(data),
         err => console.log(err)
       );
   }
+
 
 }
