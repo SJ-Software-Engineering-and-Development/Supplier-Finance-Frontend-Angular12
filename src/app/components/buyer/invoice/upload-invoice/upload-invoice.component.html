@@ -94,7 +94,7 @@
 
           <div class="position-relative form-group"><label for="invoice_file_name" class="">File</label><input
               name="invoice_file_name" formControlName="invoice_file_name" id="invoice_file_name" type="file"
-              class="form-control-file">
+              class="form-control-file" (change)="showPreview($event)">
 
             <small class="form-text text-muted">Upload Invoice File</small>
           </div>
@@ -167,4 +167,28 @@
       </li>
     </ul>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <table *ngIf="imageList">
+      <tr *ngFor="let i of imageList">
+
+        <h1>{{i.imageUrl}} </h1> 
+        <td>
+          <div class="imagebox" *ngIf="i==0">
+            
+          </div>
+          <h5>Storage is Empty</h5>
+          <div class="imagebox" *ngIf="i!=0">
+            <!-- <h3 class="text-primary">URL : {{imageList[i].imageUrl}}</h3> -->
+            <!-- <h3 class="text-primary">Caption : {{imageList[i].caption}}</h3>  -->
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <button class="btn btn-primary" (click)="fetchFirebaseData()">Fetch Firebase Data</button>
+  </div>
+
 </div>

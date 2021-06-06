@@ -21,8 +21,8 @@ export class BuyerNavBarComponent implements OnInit {
 
   logout(){
     this.tokenStorageService.signOut();
-    this.router.navigate(['']);
-    window.location.reload();
+    // this.router.navigate(['']);
+    // window.location.reload();
   }
 
 }

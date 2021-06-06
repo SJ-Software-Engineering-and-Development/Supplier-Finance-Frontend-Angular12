@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/index';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { map } from 'rxjs/internal/operators/map';
+import { tap } from 'rxjs/internal/operators/tap';
 
-const AUTH_API = 'http://localhost:8082/api/supplierFinance/innvoice/';
+const API = 'http://localhost:8082/api/supplierFinance/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -11,31 +14,69 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class InvoiceService {
+
+  //https://nsrathore.medium.com/creating-custom-key-for-new-record-in-realtime-database-firebase-angular-48659118d047
+
+  imageDetailList: AngularFireList<any>;
+  USER_ID:string='u001';
+
+  constructor(private http:HttpClient, private firebase: AngularFireDatabase) { }
+
+  tableName = 'invoice'; // node/collection
+  dbRef = this.firebase.database.ref(this.url);
+
+  //Firebase.....
+  getImageDetailList(user_id:string) {
+    //this.imageDetailList = this.firebase.list('imageDetails');
+    let node_url= "invoice/" +user_id;
+    this.imageDetailList = this.firebase.list(node_url);
+  }
+
+  insertImageDetails(imageDetails:any, clientId:string, row_id:string) {
+  //  this.imageDetailList.push(imageDetails);
+  this.dbRef.child(row_id).set(imageDetails);
+  }
   
-  constructor(private http:HttpClient) { }
+  deleteItem(){
+    //this.dbRef.child(key).remove();
+  }
+  updateItem(){
+    // this.dbRef.child(key).update(item);
+  }
+
+  get url() {
+    return `${this.tableName}/${this.USER_ID}`;
+  }
+  
+  //....Firebase
 
   uploadInvoice(newInvoice:any): Observable<any> {
-    
-    return this.http.post(AUTH_API + 'upload', {
+    return this.http.post(API + 'innvoice/upload', {
 
-      innvoiceDate : newInvoice.innvoiceDate,
+      innvoiceDate : newInvoice.innvoiceDate,	
       amount : newInvoice.amount,
-      status : newInvoice.status,
-      invoiceFile : newInvoice.invoiceFile,
-      currency: newInvoice.currency,
-      suserId : newInvoice.suserId,
-      cuserId : newInvoice.cuserId
+      status : newInvoice.status,	
+      invoiceUrl : "url",		
+      currency : newInvoice.currency,	
+      supplier_id : newInvoice.supplier_id,	
+      cus_user_id : newInvoice.cus_user_id
 
     }, httpOptions);
   }
 
   public getInvoice() {
-    this.http.get(AUTH_API + 'get_invoices')
+    this.http.get(API + 'innvoice/get_invoices')
       .subscribe(
         data => console.log(data),
         err => console.log(err)
       );
   }
+
+  public getAllSuppliers():Observable<any>{
+    return this.http.get('http://localhost:8082/api/supplierFinance/supplier/getall');
+    
+  }
+
 
 
 }

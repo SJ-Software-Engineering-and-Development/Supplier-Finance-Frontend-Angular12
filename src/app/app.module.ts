@@ -36,15 +36,22 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ViewInvoiceComponent } from './components/buyer/invoice/view-invoice/view-invoice.component';
 
+// FireBase
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireStorageModule } from "@angular/fire/storage";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+//Environment
+import { environment } from "../environments/environment";
+
 const appRountes: Routes=[
   {path: '', component: LandingComponent},
   {path:'app_pagecontainer', component: PagecontainerComponent},
   {path:'buyer_dashboard', component: BuyerDashboardComponent,canActivate: [AuthGuardService]},
   {path:'seller_dashboard', component: SellerDashboardComponent, canActivate: [AuthGuardService]},
   {path:'banker_dashboard', component: BankerDashboardComponent,canActivate: [AuthGuardService]},
-  {path:'utility', component: PagecontainerComponent},
+  {path:'utility', component: PagecontainerComponent,canActivate: [AuthGuardService]},
   {path:'buyer-invoice_upload', component: UploadInvoiceComponent},
-  {path:'buyer-invoice_show', component: ViewInvoiceComponent}
+  {path:'buyer-invoice_show', component: ViewInvoiceComponent,canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
@@ -81,7 +88,10 @@ const appRountes: Routes=[
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
