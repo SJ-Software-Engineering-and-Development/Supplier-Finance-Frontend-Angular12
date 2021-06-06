@@ -56,7 +56,7 @@ export class InvoiceService {
       innvoiceDate : newInvoice.innvoiceDate,	
       amount : newInvoice.amount,
       status : newInvoice.status,	
-      invoiceUrl : "url",		
+      invoiceUrl : newInvoice.invoiceUrl,		
       currency : newInvoice.currency,	
       supplier_id : newInvoice.supplier_id,	
       cus_user_id : newInvoice.cus_user_id

@@ -59,10 +59,8 @@
         <form [formGroup]="frmInvoice">
 
           <div class="position-relative form-group"><label for="suppliers" class="">Supplier</label>
-            <select formControlName="suppliers" id="suppliers" class="form-control">
-              <option *ngFor="let order of suppliers; let i = index" [value]="suppliers[i].id">
-                {{suppliers[i].name}}
-              </option>
+            <select (change)="selectChangeHandler($event)" class="form-control">
+              <option *ngFor="let sup of suppliers" [value]="sup.supplierId">{{sup.name}}</option>
             </select>
           </div>
 

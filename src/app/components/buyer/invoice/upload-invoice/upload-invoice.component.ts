@@ -15,10 +15,11 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class UploadInvoiceComponent implements OnInit {
 
   frmInvoice: FormGroup;
-  // orders = [{id:0, name:''}]
-  // orders = [];
+
   // https://coryrylan.com/blog/creating-a-dynamic-select-with-angular-forms
-  suppliers = [];
+  suppliers = [
+    {supplierId:0, name:''}
+  ];
 
   isSuccessful = false;
   errorMessage = '';
@@ -35,6 +36,7 @@ export class UploadInvoiceComponent implements OnInit {
 
   // row_id="001";
   user_id="";
+  selectedSupplierId: string = '';
 
   //Firebase....save
   imgSrc: string;
@@ -53,11 +55,10 @@ export class UploadInvoiceComponent implements OnInit {
 
   constructor(private storage: AngularFireStorage, private tokenStorage :TokenStorageService, private invoiceService: InvoiceService,private _formBuilder: FormBuilder) { 
     
-    // async Suppliers
+    //async Suppliers
     // of(this.getSuppliers()).subscribe(suppliers_ => {
     //   this.suppliers = suppliers_;
     // });
-    this.getSuppliers();
   }
 
   ngOnInit(): void {
@@ -67,13 +68,15 @@ export class UploadInvoiceComponent implements OnInit {
 
     this.invoiceService.getImageDetailList(this.user_id);
 
+    //Get suppliers
+    this.getSuppliers();
+
     //Create Form Group
     this.frmInvoice = this._formBuilder.group({
       invoiceDate: new FormControl('', [Validators.required]),
       amount: new FormControl('', [Validators.required]),
       invoice_file_name : new FormControl('', [Validators.required]),
       currency: new FormControl('', [Validators.required]),
-      suppliers: ['']
     });
   }
   
@@ -100,20 +103,21 @@ export class UploadInvoiceComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
 
-            //invoiceId: 7, supplierId: 2, clientUserId: 3
+            //invoiceId: , supplierId: , clientUserId: 
             this.invoice.invoiceUrl = url;
             this.invoice.client_user_id = inv_data.clientUserId;
             this.invoice.supplier_id = inv_data.supplierId;
 
-            //Insert FileUrl to Cloud Database
+            //Insert FileUrl to Cloud Database..............( child_node = invoiceId )
             this.invoiceService.insertImageDetails(this.invoice, inv_data.clientUserId, inv_data.invoiceId);         
           })
         })
       ).subscribe(
           data => {
+
             console.log("==========================Cloud data=======================");
             console.log(data);
-            //  this.InsertUploadedInfo();
+  
             //Update URL
             alert('Upload Done!')
           },
@@ -123,7 +127,7 @@ export class UploadInvoiceComponent implements OnInit {
       );
   }
 
-  InsertUploadedInfo(){
+  insertInvoice(){
     let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
     console.log(this.frmInvoice.value);
       //data
@@ -132,9 +136,9 @@ export class UploadInvoiceComponent implements OnInit {
           innvoiceDate : this.frmInvoice.value.invoiceDate,
           amount : this.frmInvoice.value.amount,  
           status :  "PENDING",
-          invoiceUrl : 'cloud_url++++++++++',
+          invoiceUrl : 'url-pending',
           currency :  this.frmInvoice.value.currency,
-          supplier_id : 2,
+          supplier_id : parseInt(this.selectedSupplierId),
           cus_user_id :  user.id
         
       } 
@@ -144,7 +148,6 @@ export class UploadInvoiceComponent implements OnInit {
           this.isSuccessful = true;
           this.frmInvoice.reset();
 
-          //invoiceId: 7, supplierId: 2, clientUserId: 3
           this.uploadToCloud(data);
         //   Swal.fire(
         //   'Successfully Uploaded!',
@@ -189,32 +192,28 @@ export class UploadInvoiceComponent implements OnInit {
   //....Firebase
 
   getSuppliers() {
-
      this.invoiceService.getAllSuppliers().subscribe(
       data => {
-        console.log("==============getAllSuppliers==============");
-        console.log(data);
         this.suppliers = data;
       },
       err => {
         console.log(err);
       }
     );
-    
-    // return [
-    //   { id: '1', name: 'order 1' },
-    //   { id: '2', name: 'order 2' },
-    //   { id: '3', name: 'order 3' },
-    //   { id: '4', name: 'order 4' }
-    // ];
   }
 
   clicksub(): void {
-
-    this.InsertUploadedInfo();
-   
+    this.insertInvoice();
+    console.log(this.frmInvoice.value);
+    console.log(this.selectedSupplierId);
   }
 
-  
+ 
+
+  //event handler for the select element's change event
+  selectChangeHandler (event: any) {
+    //update the ui
+    this.selectedSupplierId = event.target.value;
+  } 
 
 }
