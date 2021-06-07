@@ -17,24 +17,27 @@ export class InvoiceService {
 
   //https://nsrathore.medium.com/creating-custom-key-for-new-record-in-realtime-database-firebase-angular-48659118d047
 
-  imageDetailList: AngularFireList<any>;
-  USER_ID:string='u001';
+  invDetailList: AngularFireList<any>;
+  oneInvOfUser : AngularFireList<any>;
 
   constructor(private http:HttpClient, private firebase: AngularFireDatabase) { }
 
   tableName = 'invoice'; // node/collection
   dbRef = this.firebase.database.ref(this.url);
 
-  //Firebase.....
-  getImageDetailList(user_id:string) {
-    //this.imageDetailList = this.firebase.list('imageDetails');
-    let node_url= "invoice/" +user_id;
-    this.imageDetailList = this.firebase.list(node_url);
+  getInvoiceDetailList() {
+    let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
+    let node_url= "invoice/"+ user.id;
+    this.invDetailList = this.firebase.list(node_url);
   }
 
-  insertImageDetails(imageDetails:any, clientId:string, row_id:string) {
-  //  this.imageDetailList.push(imageDetails);
-  this.dbRef.child(row_id).set(imageDetails);
+  getInvByUserID_and_InvID(userID:string,invID:number){
+    let node_url= 'invoice/'+userID+'/'+ invID;
+    this.oneInvOfUser = this.firebase.list(node_url);
+  }
+
+  insertImageDetails(invDetails:any, clientId:string, row_id:string) {
+    this.dbRef.child(row_id).set(invDetails);
   }
   
   deleteItem(){
@@ -45,11 +48,10 @@ export class InvoiceService {
   }
 
   get url() {
-    return `${this.tableName}/${this.USER_ID}`;
+    let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
+    return `${this.tableName}/${user.id}`;
   }
   
-  //....Firebase
-
   uploadInvoice(newInvoice:any): Observable<any> {
     return this.http.post(API + 'innvoice/upload', {
 
@@ -73,10 +75,14 @@ export class InvoiceService {
   }
 
   public getAllSuppliers():Observable<any>{
-    return this.http.get('http://localhost:8082/api/supplierFinance/supplier/getall');
-    
+    return this.http.get(API+'supplier/getall');
   }
 
-
+  updateInvUrl(invoiceId:number, invoiceUrl:string):Observable<any>{
+    return this.http.put(API+'innvoice/update/'+invoiceId,{
+      invoiceId : invoiceId,
+      invoiceUrl  : invoiceUrl
+    }, httpOptions);
+  }
 
 }
