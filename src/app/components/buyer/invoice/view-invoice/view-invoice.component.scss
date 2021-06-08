@@ -1,0 +1,19 @@
+.pdf-modal-body {
+    /* overflow-x: scroll;*/
+    overflow-y: scroll;
+    height: 1000px;
+    scroll-behavior: smooth;
+  }
+  
+  .modal {
+    /* max-width: 1200px; */
+    align-self: center;
+  }
+  
+  .modal-dialog {
+    max-width: 1100px;
+  }
+  
+  .modal-body {
+    max-width: 1100px;
+  }

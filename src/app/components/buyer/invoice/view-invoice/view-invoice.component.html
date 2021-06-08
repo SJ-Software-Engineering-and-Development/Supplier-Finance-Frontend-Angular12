@@ -56,11 +56,16 @@
       <div class="widget-content">
         <div class="widget-content-wrapper">
           <div class="widget-content-right ml-0 mr-3">
-            <div class="widget-numbers text-success">0</div>
+            <ng-container *ngIf="invList">
+              <div class="widget-numbers text-warning">{{invList.length}}</div>
+            </ng-container>
+            <ng-container *ngIf="!invList">
+              <div class="widget-numbers text-warning">0</div>
+            </ng-container>
           </div>
           <div class="widget-content-left">
             <div class="widget-heading">Total Invoices</div>
-            <div class="widget-subheading">(Approved/ Declined)</div>
+            <div class="widget-subheading">(Approved + Declined + Pending)</div>
           </div>
         </div>
       </div>
@@ -69,7 +74,7 @@
       <div class="widget-content">
         <div class="widget-content-wrapper">
           <div class="widget-content-right ml-0 mr-3">
-            <div class="widget-numbers text-warning">0</div>
+            <div class="widget-numbers text-success">0</div>
           </div>
           <div class="widget-content-left">
             <div class="widget-heading">Approved</div>
@@ -103,6 +108,15 @@
             <button class="active btn btn-focus">This Week</button>
             <button class="btn btn-focus">All Month</button>
           </div>
+
+          <div ngbDropdown class="d-inline-block">
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Action - 1</button>
+              <button ngbDropdownItem>Another Action</button>
+              <button ngbDropdownItem>Something else is here</button>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="table-responsive">
@@ -169,7 +183,7 @@
                 <div class="badge badge-warning">{{i.status}}</div>
               </td>
               <td class="text-center">
-                <button data-toggle="modal" data-target="#LoginForm" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">View</button>
+                <button (click)="openPDFVIewModal(PDFVIewModal, i.invoiceUrl)" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">View</button>
               </td>
             </tr> 
 
@@ -185,17 +199,9 @@
   </div>
 </div>
 <!-- Modal PDF Viewer -->
-<!-- <div class="modal fade" id="LoginForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" style="padding: 0%;">
-    <div class="modal-content" style="padding: 0%;">
-      <div class="modal-body" style="padding: 0%;margin-top: 0%;">
-
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<ng-template #content let-modal>
+<!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
+<ng-template #PDFVIewModal let-modal>
+  
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -203,19 +209,22 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
+    <div >
+      <div class="card-body card-body-modal">
+        <div class="p-3 pdf-modal-body" id="pdf-modal-body">
+          <pdf-viewer [src]="pdfSrc" [render-text]="true" [autoresize]="true" [original-size]="false" style="display: block;" [show-all]="true">
+          </pdf-viewer>
         </div>
-      </div>
-    </form>
+      </div>  
+    </div>
+   
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button> -->
+    <a [href]="pdfSrc" target="_blank">Open in New Tab</a>
   </div>
 </ng-template>
+
+  <!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openPDFVIewModal(PDFVIewModal)">Modal scrollable content</button> -->
+<hr>
+

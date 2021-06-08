@@ -89,4 +89,8 @@ export class InvoiceService {
       role: role
     }, httpOptions);
   }
+
+  // getInvByURL():Observable<any>{
+  //   return this.http.get('https://firebasestorage.googleapis.com/v0/b/angular-image-gallery-399ea.appspot.com/o/9%2F12_05_2021_1623131247441?alt=media&token=a6c3bda7-b49b-49b3-baa2-449fb2f95f33');
+  // }
 }
