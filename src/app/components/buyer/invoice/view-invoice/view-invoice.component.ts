@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InvoiceService } from 'src/app/services/invoice.service';
 
 @Component({
   selector: 'app-view-invoice',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewInvoiceComponent implements OnInit {
 
-  constructor() { }
+  invList: any[];
+
+  constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit(): void {
+     this.getInvoices();
   }
 
+  getInvoices(){
+    let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
+    this.invoiceService.getInvoiceByRole(user.id, user.roles).subscribe(
+      data => {
+        this.invList = data;
+      },
+      err =>{
+      }
+    );
+
+  }
 }

@@ -53,7 +53,7 @@ export class UploadInvoiceComponent implements OnInit {
   imageList: any[];
   rowIndexArray: any[];
 
-  constructor(private storage: AngularFireStorage, private tokenStorage :TokenStorageService, private invoiceService: InvoiceService,private _formBuilder: FormBuilder) { 
+  constructor(private storage: AngularFireStorage, private invoiceService: InvoiceService,private _formBuilder: FormBuilder) { 
     
     //async Suppliers
     // of(this.getSuppliers()).subscribe(suppliers_ => {
@@ -137,13 +137,11 @@ export class UploadInvoiceComponent implements OnInit {
               {
                 this.showUploadstate = 'Uploading';
                 this.uploadBtnText = 'Uploading...';
-                this.uploadBtnText = 'Upload Invoice';
+
               } else if(this.State == 'success'){
                 this.showUploadstate = 'Done';
-                // let invURL = this.getInvURL();
-                // console.log("INV URL : " +invURL);
+                this.uploadBtnText = 'Upload Invoice';
                 this.getInvURLAndUpdateInvUrl(this.inv_id);
-                // this.updateInvUrl(this.inv_id, '45');
               }
            }catch(Exception){
              this.uploadBtnText = 'Upload Invoice';
@@ -267,5 +265,4 @@ export class UploadInvoiceComponent implements OnInit {
     //update the ui
     this.selectedSupplierId = event.target.value;
   } 
-
 }

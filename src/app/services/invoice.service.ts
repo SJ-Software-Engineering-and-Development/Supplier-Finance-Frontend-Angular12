@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/index';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { map } from 'rxjs/internal/operators/map';
-import { tap } from 'rxjs/internal/operators/tap';
 
 const API = 'http://localhost:8082/api/supplierFinance/';
 const httpOptions = {
@@ -85,4 +83,10 @@ export class InvoiceService {
     }, httpOptions);
   }
 
+  getInvoiceByRole(user_id:any, role:any):Observable<any>{
+    return this.http.post(API + 'innvoice/getByRole',{
+      userId : user_id,
+      role: role
+    }, httpOptions);
+  }
 }
