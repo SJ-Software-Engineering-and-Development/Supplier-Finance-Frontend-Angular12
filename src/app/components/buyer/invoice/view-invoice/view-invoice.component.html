@@ -125,8 +125,8 @@
                     <div class="widget-content-left mr-2">                      
                     </div>
                     <div class="widget-content-left flex2">
-                      <div class="widget-heading">#{{i.innvoiceId}}</div>
-                      <div class="widget-subheading opacity-7">{{i.innvoiceDate}}
+                      <div class="widget-heading"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="mr-2"></span> #{{i.innvoiceId}}</div>
+                      <div class="widget-subheading opacity-7"><i class="fa fa-calendar" aria-hidden="true"></i> <span class="mr-2"></span> {{i.innvoiceDate}}
                       </div>
                     </div>
                   </div>
@@ -164,24 +164,58 @@
                   </div>
                 </div>
               </td>
-
               <td class="text-center">{{i.currency}} {{i.amount}}</td>
               <td class="text-center">
                 <div class="badge badge-warning">{{i.status}}</div>
               </td>
               <td class="text-center">
-                <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">View</button>
+                <button data-toggle="modal" data-target="#LoginForm" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">View</button>
               </td>
-            </tr>
+            </tr> 
 
           </tbody>
         </table>
       </div>
       <div class="d-block text-center card-footer">
-        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper">
-          </i></button>
-        <button class="btn-wide btn btn-success">Save</button>
+        <!-- <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper">
+          </i></button>-->
+        <button class="btn-wide btn btn-success ml-2" data-toggle="modal" data-target="#LoginForm" style="float: right;">Export Report</button> 
       </div>
     </div>
   </div>
 </div>
+<!-- Modal PDF Viewer -->
+<!-- <div class="modal fade" id="LoginForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="padding: 0%;">
+    <div class="modal-content" style="padding: 0%;">
+      <div class="modal-body" style="padding: 0%;margin-top: 0%;">
+
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

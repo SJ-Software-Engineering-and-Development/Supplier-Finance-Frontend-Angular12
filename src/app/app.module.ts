@@ -42,6 +42,7 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 //Environment
 import { environment } from "../environments/environment";
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 const appRountes: Routes=[
   {path: '', component: LandingComponent},
@@ -92,6 +93,7 @@ const appRountes: Routes=[
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    PdfViewerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
