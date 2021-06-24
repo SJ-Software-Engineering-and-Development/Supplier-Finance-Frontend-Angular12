@@ -34,6 +34,13 @@ export class InvoiceService {
     this.oneInvOfUser = this.firebase.list(node_url);
   }
 
+  getInvByUserIdandRole(userID:string,Role:string){
+    return this.http.post(`${API}innvoice/getByRole`,{
+      userId : userID,
+      role:["ROLE_SELLER"]
+    })
+  }
+
   insertImageDetails(invDetails:any, clientId:string, row_id:string) {
     this.dbRef.child(row_id).set(invDetails);
   }

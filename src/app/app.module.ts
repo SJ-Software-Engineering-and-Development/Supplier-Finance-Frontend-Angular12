@@ -46,17 +46,10 @@ import { environment } from "../environments/environment";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
-
-const appRountes: Routes=[
-  {path: '', component: LandingComponent},
-  {path:'app_pagecontainer', component: PagecontainerComponent},
-  {path:'buyer_dashboard', component: BuyerDashboardComponent,canActivate: [AuthGuardService]},
-  {path:'seller_dashboard', component: SellerDashboardComponent, canActivate: [AuthGuardService]},
-  {path:'banker_dashboard', component: BankerDashboardComponent,canActivate: [AuthGuardService]},
-  {path:'utility', component: PagecontainerComponent,canActivate: [AuthGuardService]},
-  {path:'buyer-invoice_upload', component: UploadInvoiceComponent},
-  {path:'buyer-invoice_show', component: ViewInvoiceComponent,canActivate: [AuthGuardService]}
-];
+import { ViewInvoiceSellerComponent } from './components/seller/view-invoice-seller/view-invoice-seller.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NgxMatAlertConfirmService,NgxMatAlertConfirmModule } from 'ngx-mat-alert-confirm';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -78,11 +71,11 @@ const appRountes: Routes=[
     LogoutComponent,
     PagecontainerComponent,
     UploadInvoiceComponent,
-    ViewInvoiceComponent
+    ViewInvoiceComponent,
+    ViewInvoiceSellerComponent
   ],
   imports: [
     BrowserModule,
-    [RouterModule.forRoot(appRountes)],
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -98,13 +91,18 @@ const appRountes: Routes=[
     AngularFireDatabaseModule,
     PdfViewerModule,
     NgbPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
+    AppRoutingModule,
+    NgxMatAlertConfirmModule,
+    ToastrModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }],
+    },
+    NgxMatAlertConfirmService,
+  ],
   bootstrap: [AppComponent]
   
 })

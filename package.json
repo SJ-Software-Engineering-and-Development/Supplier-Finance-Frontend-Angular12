@@ -35,6 +35,8 @@
     "material-steppers": "^2.0.0",
     "ng-bootstrap": "^1.6.3",
     "ng2-pdf-viewer": "^7.0.1",
+    "ngx-mat-alert-confirm": "^10.0.2",
+    "ngx-toastr": "^14.0.0",
     "popper.js": "^1.14.3",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.0.7",

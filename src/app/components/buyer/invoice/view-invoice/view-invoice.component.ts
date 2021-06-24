@@ -64,6 +64,4 @@ export class ViewInvoiceComponent implements OnInit {
     // );
   }
 
-
-
 }

@@ -11,9 +11,12 @@ export class SellerNavBarComponent implements OnInit {
 
   constructor(private tokenStorageService: TokenStorageService, private router:Router) { }
 
+  userName: string ='';
+
   ngOnInit(): void {
+    let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
+    this.userName = user.username;
   }
-  
   logout(){
     this.tokenStorageService.signOut();
     this.router.navigate(['']);
