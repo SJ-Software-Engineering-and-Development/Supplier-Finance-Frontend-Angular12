@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/index';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { INVOICE_STATUS } from '../enums/invoice_status';
 
 const API = 'http://localhost:8082/api/supplierFinance/';
 const httpOptions = {
@@ -34,11 +35,12 @@ export class InvoiceService {
     this.oneInvOfUser = this.firebase.list(node_url);
   }
 
-  getInvByUserIdandRole(userID:string,Role:string){
-    return this.http.post(`${API}innvoice/getByRole`,{
-      userId : userID,
-      role:["ROLE_SELLER"]
-    })
+  getInvoiceByRoleAndStatus(user_id:any, role:any, invStatus:string):Observable<any>{
+    return this.http.post(`${API}innvoice/getByRoleAndStatus`,{
+      userId : user_id,
+      role: role,
+      invoiceStatus:invStatus
+    }, httpOptions);
   }
 
   insertImageDetails(invDetails:any, clientId:string, row_id:string) {
@@ -90,12 +92,7 @@ export class InvoiceService {
     }, httpOptions);
   }
 
-  getInvoiceByRole(user_id:any, role:any):Observable<any>{
-    return this.http.post(API + 'innvoice/getByRole',{
-      userId : user_id,
-      role: role
-    }, httpOptions);
-  }
+
 
   // getInvByURL():Observable<any>{
   //   return this.http.get('https://firebasestorage.googleapis.com/v0/b/angular-image-gallery-399ea.appspot.com/o/9%2F12_05_2021_1623131247441?alt=media&token=a6c3bda7-b49b-49b3-baa2-449fb2f95f33');

@@ -1,225 +1,231 @@
 <div class="app-page-title">
-    <div class="page-title-wrapper">
-      <div class="page-title-heading">
-        <div class="page-title-icon">
-          <i class="pe-7s-car icon-gradient bg-mean-fruit">
-          </i>
-        </div>
-        <div>Invoice Reveal
-          <div class="page-title-subheading">You can show your invoice.
-          </div>
-        </div>
+  <div class="page-title-wrapper">
+    <div class="page-title-heading">
+      <div class="page-title-icon">
+        <i class="pe-7s-car icon-gradient bg-mean-fruit">
+        </i>
       </div>
-      <div class="page-title-actions">
-        <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom"
-          class="btn-shadow mr-3 btn btn-dark">
-          <i class="fa fa-star"></i>
-        </button>
-        <div class="d-inline-block dropdown">
-          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            class="btn-shadow dropdown-toggle btn btn-info">
-            <span class="btn-icon-wrapper pr-2 opacity-7">
-              <i class="fa fa-business-time fa-w-20"></i>
-            </span>
-            Invoices
-          </button>
-          <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a href="javascript:void(0);" class="nav-link">
-                  <i class="nav-link-icon lnr-inbox"></i>
-                  <span>
-                    View
-                  </span>
-                  <div class="ml-auto badge badge-pill badge-secondary">86</div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="javascript:void(0);" class="nav-link">
-                  <i class="nav-link-icon lnr-book"></i>
-                  <span>
-                    Upload
-                  </span>
-                  <div class="ml-auto badge badge-pill badge-danger">5</div>
-                </a>
-              </li>
-            </ul>
-          </div>
+      <div>Invoice Reveal
+        <div class="page-title-subheading">You can show your invoice.
         </div>
       </div>
     </div>
-  </div>
-  
-  <div class="main-card mb-3 card">
-    <div class="no-gutters row">
-      <div class="col-md-4">
-        <div class="widget-content">
-          <div class="widget-content-wrapper">
-            <div class="widget-content-right ml-0 mr-3">
-              <ng-container *ngIf="invList">
-                <div class="widget-numbers text-warning">{{invList.length}}</div>
-              </ng-container>
-              <ng-container *ngIf="!invList">
-                <div class="widget-numbers text-warning">0</div>
-              </ng-container>
-            </div>
-            <div class="widget-content-left">
-              <div class="widget-heading">Total Invoices</div>
-              <div class="widget-subheading">(Approved + Declined + Pending)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="widget-content">
-          <div class="widget-content-wrapper">
-            <div class="widget-content-right ml-0 mr-3">
-              <div class="widget-numbers text-success">0</div>
-            </div>
-            <div class="widget-content-left">
-              <div class="widget-heading">Approved</div>
-              <div class="widget-subheading">Total Approved invoices</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="widget-content">
-          <div class="widget-content-wrapper">
-            <div class="widget-content-right ml-0 mr-3">
-              <div class="widget-numbers text-danger">0</div>
-            </div>
-            <div class="widget-content-left">
-              <div class="widget-heading">Declined</div>
-              <div class="widget-subheading">Total Declined invoices</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-12 __web-inspector-hide-shortcut__">
-      <div class="main-card mb-3 card">
-        <div class="card-header">Invoices
-          <div class="btn-actions-pane-right">
-            <div role="group" class="btn-group-sm btn-group">
-              <button class="active btn btn-focus">Pending</button>
-              <button class="btn btn-focus">Accepted</button>
-              <button class="btn btn-focus">Decline</button>
-              <button class="btn btn-focus">All</button>
-            </div>
-          </div>
-        </div>
-        <div class="table-responsive">
-          <table *ngIf="invList" class="align-middle mb-0 table table-borderless table-striped table-hover">
-            <thead>
-              <tr>
-                <th class="text-center">INV ID & DATE</th>
-                <th>Client</th>
-                <th>Seller</th>
-                <th class="text-center">Amount</th>
-                <th class="text-center">Status</th>
-                <th class="text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let i of invList">
-                <td>
-                  <div class="widget-content p-0">
-                    <div class="widget-content-wrapper">
-                      <div class="widget-content-left mr-2">                      
-                      </div>
-                      <div class="widget-content-left flex2">
-                        <div class="widget-heading"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="mr-2"></span> #{{i.innvoiceId}}</div>
-                        <div class="widget-subheading opacity-7"><i class="fa fa-calendar" aria-hidden="true"></i> <span class="mr-2"></span> {{i.innvoiceDate}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="widget-content p-0">
-                    <div class="widget-content-wrapper">
-                      <div class="widget-content-left mr-3">
-                        <div class="widget-content-left">
-                          <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
-                        </div>
-                      </div>
-                      <div class="widget-content-left flex2">
-                        <div class="widget-heading">{{i.clientName}}</div>
-                        <div class="widget-subheading opacity-7">BUYER
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="widget-content p-0">
-                    <div class="widget-content-wrapper">
-                      <div class="widget-content-left mr-3">
-                        <div class="widget-content-left">
-                          <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
-                        </div>
-                      </div>
-                      <div class="widget-content-left flex2">
-                        <div class="widget-heading">{{i.supplierName}}</div>
-                        <div class="widget-subheading opacity-7">SELLER
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center">{{i.currency}} {{i.amount}}</td>
-                <td class="text-center">
-                  <div class="badge badge-warning">{{i.status}}</div>
-                </td>
-                <td class="text-center">
-                  <button (click)="openPDFVIewModal(PDFVIewModal, i.invoiceUrl)" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">View</button>
-                  <button class="ml-2 btn btn-primary btn-sm" (click)="takeAction()">Take Action</button>
-                </td>
-              </tr> 
-  
-            </tbody>
-          </table>
-        </div>
-        <div class="d-block text-center card-footer">
-          <!-- <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper">
-            </i></button>-->
-          <button class="btn-wide btn btn-success ml-2" data-toggle="modal" data-target="#LoginForm" style="float: right;">Export Report</button> 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal PDF Viewer -->
-  <!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
-  <ng-template #PDFVIewModal let-modal>
-    
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+    <div class="page-title-actions">
+      <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom"
+        class="btn-shadow mr-3 btn btn-dark">
+        <i class="fa fa-star"></i>
       </button>
-    </div>
-    <div class="modal-body">
-      <div >
-        <div class="card-body card-body-modal">
-          <div class="p-3 pdf-modal-body" id="pdf-modal-body">
-            <pdf-viewer [src]="pdfSrc" [render-text]="true" [autoresize]="true" [original-size]="false" style="display: block;" [show-all]="true">
-            </pdf-viewer>
-          </div>
-        </div>  
+      <div class="d-inline-block dropdown">
+        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          class="btn-shadow dropdown-toggle btn btn-info">
+          <span class="btn-icon-wrapper pr-2 opacity-7">
+            <i class="fa fa-business-time fa-w-20"></i>
+          </span>
+          Invoices
+        </button>
+        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="javascript:void(0);" class="nav-link">
+                <i class="nav-link-icon lnr-inbox"></i>
+                <span>
+                  View
+                </span>
+                <div class="ml-auto badge badge-pill badge-secondary">86</div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0);" class="nav-link">
+                <i class="nav-link-icon lnr-book"></i>
+                <span>
+                  Upload
+                </span>
+                <div class="ml-auto badge badge-pill badge-danger">5</div>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-     
     </div>
-    <div class="modal-footer">
-      <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button> -->
-      <a [href]="pdfSrc" target="_blank">Open in New Tab</a>
+  </div>
+</div>
+
+<div class="main-card mb-3 card">
+  <div class="no-gutters row">
+    <div class="col-md-4">
+      <div class="widget-content">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-right ml-0 mr-3">
+            <ng-container *ngIf="invList">
+              <div class="widget-numbers text-warning">{{invList.length}}</div>
+            </ng-container>
+            <ng-container *ngIf="!invList">
+              <div class="widget-numbers text-warning">0</div>
+            </ng-container>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">Total Invoices</div>
+            <div class="widget-subheading">(Approved + Denied + Pending)</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </ng-template>
-  
-    <!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openPDFVIewModal(PDFVIewModal)">Modal scrollable content</button> -->
-  <hr>
-  
-  
+    <div class="col-md-4">
+      <div class="widget-content">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-right ml-0 mr-3">
+            <div class="widget-numbers text-success">0</div>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">Approved</div>
+            <div class="widget-subheading">Total Approved invoices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="widget-content">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-right ml-0 mr-3">
+            <div class="widget-numbers text-danger">0</div>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">Denied</div>
+            <div class="widget-subheading">Total Denied invoices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 __web-inspector-hide-shortcut__">
+    <div class="main-card mb-3 card">
+      <div class="card-header">Invoices
+        <div class="btn-actions-pane-right">
+          <div role="group" class="btn-group-sm btn-group">
+            <button [ngClass]="getPendingClass()" (click)="getInvBy_UserId_Role_Status('PENDING')">Pending</button>
+            <button [ngClass]="getAcceptClass()"  (click)="getInvBy_UserId_Role_Status('ACCEPTED')">Accepted</button>
+            <button class="btn btn-focus" (click)="getInvBy_UserId_Role_Status('DENIED')">Denied</button>
+            <button class="btn btn-focus" (click)="getInvBy_UserId_Role_Status('COMPLETE')">Complete</button>
+            <button class="btn btn-focus" (click)="getInvBy_UserId_Role_Status('PAYMENT_DENIED')">Payment-canceled</button>
+          </div>
+        </div>        
+      </div>
+      <div class="table-responsive">
+        <table *ngIf="invList" class="align-middle mb-0 table table-borderless table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="text-center">INV ID & DATE</th>
+              <th>Client</th>
+              <th>Seller</th>
+              <th class="text-center">Amount</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of invList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize;">
+              <td>
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left mr-2">
+                    </div>
+                    <div class="widget-content-left flex2">
+                      <div class="widget-heading"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span
+                          class="mr-2"></span> #{{i.innvoiceId}}</div>
+                      <div class="widget-subheading opacity-7"><i class="fa fa-calendar" aria-hidden="true"></i> <span
+                          class="mr-2"></span> {{i.innvoiceDate}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left mr-3">
+                      <div class="widget-content-left">
+                        <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                      </div>
+                    </div>
+                    <div class="widget-content-left flex2">
+                      <div class="widget-heading">{{i.clientName}}</div>
+                      <div class="widget-subheading opacity-7">BUYER
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left mr-3">
+                      <div class="widget-content-left">
+                        <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                      </div>
+                    </div>
+                    <div class="widget-content-left flex2">
+                      <div class="widget-heading">{{i.supplierName}}</div>
+                      <div class="widget-subheading opacity-7">SELLER
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center">{{i.currency}} {{i.amount}}</td>
+              <td class="text-center">
+                <div class="badge badge-warning">{{i.status}}</div>
+              </td>
+              <td class="text-center">
+                <button (click)="openPDFVIewModal(PDFVIewModal, i.invoiceUrl)" type="button" id="PopoverCustomT-1"
+                  class="btn btn-primary btn-sm">View</button>
+                <button class="ml-2 btn btn-primary btn-sm" (click)="takeAction()">Take Action</button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <ngb-pagination [pageSize]="pageSize" [collectionSize]="listSize" [(page)]="page"
+        aria-label="Default pagination"></ngb-pagination>
+      <div class="d-block text-center card-footer">
+        <!-- <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper">
+          </i></button>-->
+        <button class="btn-wide btn btn-success ml-2" data-toggle="modal" data-target="#LoginForm"
+          style="float: right;">Export Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal PDF Viewer -->
+<!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
+<ng-template #PDFVIewModal let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <div class="card-body card-body-modal">
+        <div class="p-3 pdf-modal-body" id="pdf-modal-body">
+          <pdf-viewer [src]="pdfSrc" [render-text]="true" [autoresize]="true" [original-size]="false"
+            style="display: block;" [show-all]="true">
+          </pdf-viewer>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button> -->
+    <a [href]="pdfSrc" target="_blank">Open in New Tab</a>
+  </div>
+</ng-template>
+
+<!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openPDFVIewModal(PDFVIewModal)">Modal scrollable content</button> -->
+<hr>

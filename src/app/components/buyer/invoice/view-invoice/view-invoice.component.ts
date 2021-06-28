@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { INVOICE_STATUS } from 'src/app/enums/invoice_status';
 
 @Component({
   selector: 'app-view-invoice',
@@ -13,23 +14,24 @@ export class ViewInvoiceComponent implements OnInit {
   closeResult: string;//Modal close Result
  // pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
   pdfSrc:any;
+  listSize:number;
+
+
 
   constructor(private invoiceService: InvoiceService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-     this.getInvoices();
+     this.getInvBy_UserId_Role_Status('PENDING');
   }
 
-  getInvoices(){
+  getInvBy_UserId_Role_Status(invoiceStatus:string){
     let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
-    this.invoiceService.getInvoiceByRole(user.id, user.roles).subscribe(
-      data => {
-        this.invList = data;
-      },
-      err =>{
-      }
+    this.invoiceService.getInvoiceByRoleAndStatus(user.id, user.roles, invoiceStatus).subscribe(
+      (data:any)=>{
+       this.invList = data;
+       this.listSize = this.invList.length;
+      }, (err:ErrorHandler)=>{console.log(err)}
     );
-
   }
 
   open(content:any) {

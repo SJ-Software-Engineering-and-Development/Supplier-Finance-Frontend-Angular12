@@ -65,7 +65,7 @@
           </div>
           <div class="widget-content-left">
             <div class="widget-heading">Total Invoices</div>
-            <div class="widget-subheading">(Approved + Declined + Pending)</div>
+            <div class="widget-subheading">(Approved + Denied + Pending)</div>
           </div>
         </div>
       </div>
@@ -90,8 +90,8 @@
             <div class="widget-numbers text-danger">0</div>
           </div>
           <div class="widget-content-left">
-            <div class="widget-heading">Declined</div>
-            <div class="widget-subheading">Total Declined invoices</div>
+            <div class="widget-heading">Denied</div>
+            <div class="widget-subheading">Total Denied invoices</div>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@
           <div role="group" class="btn-group-sm btn-group">
             <button class="active btn btn-focus">Pending</button>
             <button class="btn btn-focus">Accepted</button>
-            <button class="btn btn-focus">Decline</button>
+            <button class="btn btn-focus">Denied</button>
             <button class="btn btn-focus">All</button>
           </div>
         </div>
@@ -129,11 +129,13 @@
               <td>
                 <div class="widget-content p-0">
                   <div class="widget-content-wrapper">
-                    <div class="widget-content-left mr-2">                      
+                    <div class="widget-content-left mr-2">
                     </div>
                     <div class="widget-content-left flex2">
-                      <div class="widget-heading"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="mr-2"></span> #{{i.innvoiceId}}</div>
-                      <div class="widget-subheading opacity-7"><i class="fa fa-calendar" aria-hidden="true"></i> <span class="mr-2"></span> {{i.innvoiceDate}}
+                      <div class="widget-heading"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span
+                          class="mr-2"></span> #{{i.innvoiceId}}</div>
+                      <div class="widget-subheading opacity-7"><i class="fa fa-calendar" aria-hidden="true"></i> <span
+                          class="mr-2"></span> {{i.innvoiceDate}}
                       </div>
                     </div>
                   </div>
@@ -176,9 +178,10 @@
                 <div class="badge badge-warning">{{i.status}}</div>
               </td>
               <td class="text-center">
-                <button (click)="openPDFVIewModal(PDFVIewModal, i.invoiceUrl)" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">View</button>
+                <button (click)="openPDFVIewModal(PDFVIewModal, i.invoiceUrl)" type="button" id="PopoverCustomT-1"
+                  class="btn btn-primary btn-sm">View</button>
               </td>
-            </tr> 
+            </tr>
 
           </tbody>
         </table>
@@ -186,7 +189,8 @@
       <div class="d-block text-center card-footer">
         <!-- <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper">
           </i></button>-->
-        <button class="btn-wide btn btn-success ml-2" data-toggle="modal" data-target="#LoginForm" style="float: right;">Export Report</button> 
+        <button class="btn-wide btn btn-success ml-2" data-toggle="modal" data-target="#LoginForm"
+          style="float: right;">Export Report</button>
       </div>
     </div>
   </div>
@@ -194,7 +198,7 @@
 <!-- Modal PDF Viewer -->
 <!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
 <ng-template #PDFVIewModal let-modal>
-  
+
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -202,15 +206,16 @@
     </button>
   </div>
   <div class="modal-body">
-    <div >
+    <div>
       <div class="card-body card-body-modal">
         <div class="p-3 pdf-modal-body" id="pdf-modal-body">
-          <pdf-viewer [src]="pdfSrc" [render-text]="true" [autoresize]="true" [original-size]="false" style="display: block;" [show-all]="true">
+          <pdf-viewer [src]="pdfSrc" [render-text]="true" [autoresize]="true" [original-size]="false"
+            style="display: block;" [show-all]="true">
           </pdf-viewer>
         </div>
-      </div>  
+      </div>
     </div>
-   
+
   </div>
   <div class="modal-footer">
     <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button> -->
@@ -218,6 +223,5 @@
   </div>
 </ng-template>
 
-  <!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openPDFVIewModal(PDFVIewModal)">Modal scrollable content</button> -->
+<!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openPDFVIewModal(PDFVIewModal)">Modal scrollable content</button> -->
 <hr>
-

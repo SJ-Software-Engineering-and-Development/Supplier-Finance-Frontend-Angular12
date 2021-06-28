@@ -9,6 +9,9 @@ import {
 import { NgxMatAlertConfirmService } from 'ngx-mat-alert-confirm';
 import { ToastrService } from 'ngx-toastr';
 
+import { Invoice } from '../../../dtos/invoiceModel';
+import { INVOICE_STATUS } from 'src/app/enums/invoice_status';
+
 @Component({
   selector: 'app-view-invoice-seller',
   templateUrl: './view-invoice-seller.component.html',
@@ -17,9 +20,20 @@ import { ToastrService } from 'ngx-toastr';
 export class ViewInvoiceSellerComponent implements OnInit {
 
   invList: any[];
+  listSize =0;
   closeResult: string;//Modal close Result
  // pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
   pdfSrc:any;
+
+  //Table Pagination
+  pageSize = 8;
+  page = 1;
+
+  btn_groupActive:string="active btn btn-focus";
+  btn_group:string="btn btn-focus";
+
+  AcceptClass:string ="btn btn-focus";
+  PendingClass:string ="active btn btn-focus";
 
   constructor(
      private invoiceService: InvoiceService,
@@ -28,27 +42,26 @@ export class ViewInvoiceSellerComponent implements OnInit {
      private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.getInvByUserIdandRole();
+    this.getInvBy_UserId_Role_Status('PENDING');
   }
 
-  
-  getInvoices(){
-    let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
-    this.invoiceService.getInvoiceByRole(user.id, user.roles).subscribe(
-      data => {
-        this.invList = data;
-      },
-      err =>{
-      }
-    );
-
+  getAcceptClass():string{
+    this.PendingClass=this.btn_group;
+    return this.AcceptClass;
   }
 
-  getInvByUserIdandRole(){
+  getPendingClass():string{
+    this.AcceptClass= this.btn_group;
+    return this.PendingClass;
+  }
+
+  getInvBy_UserId_Role_Status(invoiceStatus:string){
+
     let user =  JSON.parse(sessionStorage.getItem('auth-user') || '{}');
-    this.invoiceService.getInvByUserIdandRole(user.id, 'ROLE_SELLER').subscribe(
+    this.invoiceService.getInvoiceByRoleAndStatus(user.id, user.roles, invoiceStatus).subscribe(
       (data:any)=>{
-        this.invList = data;
+       this.invList = data;
+       this.listSize = this.invList.length;
       }, (err:ErrorHandler)=>{console.log(err)}
     );
   }
@@ -93,24 +106,17 @@ export class ViewInvoiceSellerComponent implements OnInit {
     );
     dialogueRef.afterClosed().subscribe(confirmResult => {
       if(confirmResult==='1') {
-        // this.bookService.deleteBook(id).subscribe(
-        //   (data:any) => {
-        //   this.toastr.success('Book has been Deleted!', 'Success!');
-        //   //**** Do not reload List, Just Delete From Local List
-        //   },
-        //   (error:ErrorHandler)=>{
-        //     console.log(error);  
-        //   })
+        this.toastr.info('Status not updated!', 'Alright!');
       }
       return confirmResult;
     });
   }
 
   confirmConfig: ConfirmConfig = {
-    "title": "Are You Sure?",
-    "titleSize": 28,
-    "message": "This book will Permenently Delete!",
-    "messageSize": 16,
+    "title": "Take Action",
+    "titleSize": 18,
+    "message": "What is your Decision",
+    "messageSize": 13,
     "matIcon": "book",
     "iconColor": "",
     "buttons": [],
@@ -121,19 +127,26 @@ export class ViewInvoiceSellerComponent implements OnInit {
 
   buttonArr: Array < ConfirmButtonConfig > = [  
     {
-    id: '2',
-    text: 'Cancel',
-    color: 'primary',
-    type: 'basic',
-    icon: ''
-   },
-   {
-    id: '1',
-    text: 'Yes',
-    color: 'primary',
-    type: 'basic',
-    icon: ''
-   }
+      id: '3',
+      text: 'Deny',
+      color: 'primary',
+      type: 'basic',
+      icon: ''
+     },
+     {
+      id: '2',
+      text: 'Accept',
+      color: 'primary',
+      type: 'basic',
+      icon: ''
+     },
+     {
+      id: '1',
+      text: 'Take action later',
+      color: 'primary',
+      type: 'basic',
+      icon: ''
+     }
   ]
 
 }
